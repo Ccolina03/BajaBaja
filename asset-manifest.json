@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/BajaBaja/static/css/main.0a7cefd6.chunk.css",
+    "main.js": "/BajaBaja/static/js/main.dd23a69e.chunk.js",
+    "main.js.map": "/BajaBaja/static/js/main.dd23a69e.chunk.js.map",
+    "runtime-main.js": "/BajaBaja/static/js/runtime-main.e159f5d3.js",
+    "runtime-main.js.map": "/BajaBaja/static/js/runtime-main.e159f5d3.js.map",
+    "static/js/2.4654ef22.chunk.js": "/BajaBaja/static/js/2.4654ef22.chunk.js",
+    "static/js/2.4654ef22.chunk.js.map": "/BajaBaja/static/js/2.4654ef22.chunk.js.map",
+    "index.html": "/BajaBaja/index.html",
+    "precache-manifest.4003be13d5e4d334532820cc8b9261fc.js": "/BajaBaja/precache-manifest.4003be13d5e4d334532820cc8b9261fc.js",
+    "service-worker.js": "/BajaBaja/service-worker.js",
+    "static/css/main.0a7cefd6.chunk.css.map": "/BajaBaja/static/css/main.0a7cefd6.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e159f5d3.js",
+    "static/js/2.4654ef22.chunk.js",
+    "static/css/main.0a7cefd6.chunk.css",
+    "static/js/main.dd23a69e.chunk.js"
+  ]
+}
