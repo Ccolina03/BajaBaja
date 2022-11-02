@@ -22,7 +22,7 @@ const INITIAL_DATA=[
     title: "Universidad Agraria Puerta 4 Stop",
     description: 'My first ever bus stop. In front of "rejas" and next to the soccer fields. Proper infrastructure for a bus stop.',
     imageUrl: "https://gestion.pe/resizer/ShN6wyx2fmgzbBW8d7nbNRrCZFk=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/ACJCPGAFKBDSBEDR2SZADWQRPI.jpeg",
-    address: 'Interseccion Av. La Molina con calle Samoa',
+    address: 'Av. La Molina Puerta 4',
     location: {
         lat: 40.7484405,
         lng: -73.9878584
