@@ -11,8 +11,8 @@ const INITIAL_DATA=[
     imageUrl: "https://as2.ftcdn.net/v2/jpg/02/04/43/63/1000_F_204436318_P6lTrj1G3UnpGIP9C7JfN2WuQlBclbA0.jpg",
     address: 'Interseccion Av. La Molina con calle Samoa',
     location: {
-        lat: 40.7484405,
-        lng: -73.9878584
+        lat: -12.086158,
+        lng:  -76.898019
     },
     creator: "u1"
 },
