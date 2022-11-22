@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
@@ -38,11 +39,24 @@ const INITIAL_DATA=[
  const EditPlace = () => {
     const placeId= useParams().placeId;
 
-    //backend part to be replaced
-    const identifiedPlace = INITIAL_DATA.find(p => p.id === placeId);
-
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         title: {
+            value: '',
+            isValid: false
+        },
+        description: {
+            value: '',
+            isValid: false
+        }
+    }, false)
+
+    //backend part to be replaced
+    const identifiedPlace = INITIAL_DATA.find(p => p.id === placeId);  
+
+
+    useEffect(() => {
+
+        setFormData({ title: {
             value: identifiedPlace.title,
             isValid: true
         },
@@ -50,7 +64,11 @@ const INITIAL_DATA=[
             value: identifiedPlace.description,
             isValid: true
         }
-    }, true)
+            
+        }, true);
+
+    },[identifiedPlace, setFormData]);
+    
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
@@ -64,9 +82,17 @@ const INITIAL_DATA=[
       </div>
          );
      }
+
+     if (!formState.inputs.title.value) {
+        return (
+            <div className='center'>
+                <h2> Still loading. Give me a second :/ </h2>
+            </div>
+        );
+     }
     
      return (
-        <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
+       formState.inputs.title.value && <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
           <Input
             id="title"
             element="input"
