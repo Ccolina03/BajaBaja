@@ -1,50 +1,28 @@
-import React, { useCallback, useReducer} from 'react';
+import React from 'react';
 import './NewPlace.css';
 import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from  '../../shared/components/util/validators';
 import Button from '../../shared/components/FormElements/Button';
-
-const FormularioReducer = (state, action) => {
-	switch (action.type) {
-		case 'INPUT_CHANGE':
-			let formIsValid = true;
-			for (const inputID in state.inputs)
-				if (inputID=== action.inputID) {
-					formIsValid = formIsValid && action.isValid;
-				} else {
-					formIsValid = formIsValid && state.inputs[inputID].isValid;
-				}
-				return {
-					...state,
-					inputs: {
-						...state.inputs,
-						[action.inputID]: {value:action.value, isValid: action.isValid}
-					},
-				isValid: formIsValid
-				};
-	default:
-		return state;
-	}
-};
+import { useForm } from '../../shared/hooks/form-hook';
 
 const NewPlace = () => {
-	const [formState, dispatch] = useReducer(FormularioReducer, {
-		inputs: {
-			title: {
-				value: '',
-				isValid: false
-			},
-			description: {
-				value: '',
-				isValid: false
-			},
+ 	const [formState, inputHandler] = useForm(
+		{
+		  title: {
+			value: '',
+			isValid: false
+		  },
+		  description: {
+			value: '',
+			isValid: false
+		  },
+		  address: {
+			value: '',
+			isValid: false
+		  }
 		},
-		isValid: false
-	} );
-	const inputHandler = useCallback((id, value, isValid) => {
-		dispatch({type: 'INPUT_CHANGE', value: value, isValid: isValid, inputID: id})
-
-	}, [dispatch]);
+		false
+	  );
 
 	const placeSubmitHandler = event => {
 		event.preventDefault();
@@ -65,14 +43,12 @@ const NewPlace = () => {
 		validators={[VALIDATOR_REQUIRE()]}
 		errorText="Please enter a valid address for the bus stop."
 		onInput={inputHandler}/>
-		<Input id="reference" element = "input" label ="References/Nickname" 
+		<Input id="busrespect" element = "input" label ="Bus stop respected? (True/False)" 
 		validators={[VALIDATOR_REQUIRE()]}
-		errorText="Please enter a valid reference place."
+		errorText="Please enter a valid answer."
 		onInput={inputHandler}/>
 
 		
-		
-
 		<Button type="submit" disabled={!formState.isValid}> ADD BUS STOP  </Button>
 	</form>
 };

@@ -3,7 +3,9 @@ import {useParams} from 'react-router-dom';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/components/util/validators';
+import './NewPlace.css';
 
+import {useForm } from '../../shared/hooks/form-hook';
 const INITIAL_DATA=[ 
     {
         id: "p1",
@@ -36,8 +38,24 @@ const INITIAL_DATA=[
  const EditPlace = () => {
     const placeId= useParams().placeId;
 
-
+    //backend part to be replaced
     const identifiedPlace = INITIAL_DATA.find(p => p.id === placeId);
+
+    const [formState, inputHandler] = useForm({
+        title: {
+            value: identifiedPlace.title,
+            isValid: true
+        },
+        description: {
+            value: identifiedPlace.description,
+            isValid: true
+        }
+    }, true)
+
+    const placeUpdateSubmitHandler = event => {
+        event.preventDefault();
+        console.log(formState.inputs);
+    }
 
     if (!identifiedPlace) {
     return (
@@ -48,7 +66,7 @@ const INITIAL_DATA=[
      }
     
      return (
-        <form>
+        <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
           <Input
             id="title"
             element="input"
@@ -56,9 +74,9 @@ const INITIAL_DATA=[
             label="Title"
             validators={[VALIDATOR_REQUIRE()]}
             errorText="The title is not valid. Try again."
-            onInput={() => {}}
-            value={identifiedPlace.title}
-            valid={true}
+            onInput={inputHandler}
+            initialValue={formState.inputs.title.value}
+            initialValid={formState.inputs.title.isValid}
           />
           <Input
             id="description"
@@ -66,12 +84,12 @@ const INITIAL_DATA=[
             label="Description"
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="The minimum amount of characters allowed: 5. Please try again. "
-            onInput={() => {}}
-            value={identifiedPlace.description}
-            valid={true}
+            onInput={inputHandler}
+            initialValue={formState.inputs.description.value}
+            initialValid={formState.inputs.description.isValid}
           />
-          <Button type="submit" disabled={true}>
-            UPDATE PLACE
+          <Button type="submit" disabled={!formState.isValid}>
+            Edit Bus Stop
           </Button>
         </form>
       );
