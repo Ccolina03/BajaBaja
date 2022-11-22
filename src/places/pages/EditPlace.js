@@ -6,6 +6,7 @@ import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/components/util/validators';
 import './NewPlace.css';
 
+import Card from '../../shared/components/UIElements/Card';
 import {useForm } from '../../shared/hooks/form-hook';
 const INITIAL_DATA=[ 
     {
@@ -55,19 +56,18 @@ const INITIAL_DATA=[
 
 
     useEffect(() => {
+    if (identifiedPlace) {  setFormData({ title: {
+        value: identifiedPlace.title,
+        isValid: true
+    },
+    description: {
+        value: identifiedPlace.description,
+        isValid: true
+    }
+        
+    }, true);
 
-        setFormData({ title: {
-            value: identifiedPlace.title,
-            isValid: true
-        },
-        description: {
-            value: identifiedPlace.description,
-            isValid: true
-        }
-            
-        }, true);
-
-    },[identifiedPlace, setFormData]);
+}  } ,[identifiedPlace, setFormData]);
     
 
     const placeUpdateSubmitHandler = event => {
@@ -78,11 +78,14 @@ const INITIAL_DATA=[
     if (!identifiedPlace) {
     return (
       <div className="center">
+        <Card>
         <h2>Could not find place!</h2>
+        </Card>
       </div>
          );
      }
 
+     
      if (!formState.inputs.title.value) {
         return (
             <div className='center'>
