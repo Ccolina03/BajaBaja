@@ -42,16 +42,13 @@ const Auth = () => {
       <hr/>
 
       <form onSubmit={authSubmitHandler}>
-        {!isLoginMode && (
-          <Input
-            element="input"
-            id="name"
-            type="text"
-            label="Your Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a name."
-            onInput={inputHandler}
-          />
+        {!isLoginMode 
+        && (
+        <Input
+            element="input" id="name"
+            type="text" label="Your Name"
+            validators={[VALIDATOR_REQUIRE()]} errorText="Add a name."
+            onInput={inputHandler} />
         )}
 
         <Input element="input"
@@ -72,7 +69,7 @@ const Auth = () => {
         <Button type="submit" disabled={!formState.isValid}>
           {isLoginMode ? 'LOGIN' : 'SIGNUP'}
         </Button>
-      </form>
+      </form> 
       <Button inverse onClick={switchModeHandler}> No account? {isLoginMode ? 'SIGNUP' : 'LOGIN'} </Button>
     </Card>);};
 
