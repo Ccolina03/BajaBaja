@@ -4,12 +4,16 @@ const FormularioReducer = (state, action) => {
 	switch (action.type) {
 		case 'INPUT_CHANGE':
 			let formIsValid = true;
-			for (const inputID in state.inputs)
+			for (const inputID in state.inputs) {
+				if (!state.inputs[inputId]) {
+					continue;
+				}
 				if (inputID=== action.inputID) {
 					formIsValid = formIsValid && action.isValid;
 				} else {
 					formIsValid = formIsValid && state.inputs[inputID].isValid;
 				}
+			}
 				return {
 					...state,
 					inputs: {
