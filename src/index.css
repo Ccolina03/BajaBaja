@@ -10,7 +10,8 @@ html {
 
 body {
   margin: 0;
-  background: #4d4d4d;
+  background: #ff0055;
+  background-image: url('images/pexels-fwstudio-172277.jpg');
 }
 
 .slide-in-left-enter {
