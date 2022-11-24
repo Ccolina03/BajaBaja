@@ -6,7 +6,6 @@ import Button from '../../shared/components/FormElements/Button';
 import { useForm } from '../../shared/hooks/form-hook';
 
 
-
 const NewPlace = () => {
  	const [formState, inputHandler] = useForm(
 		{

@@ -1,5 +1,6 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useContext } from 'react';
+import {useState, useCallback} from 'react';
+import { AuthContext } from '../../shared/context/auth-context';
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
@@ -12,6 +13,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import './Auth.css';
 
 const Auth = () => {
+    const auth = useContext(AuthContext);
     const [isLoginMode, setIsLoginMode]=useState(true)
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -28,7 +30,7 @@ const Auth = () => {
   );
 
   const switchModeHandler = () => {
-    if (!isLoginliMode) {
+    if (!isLoginMode) {
         setFormData({
             ...formState.inputs,
             name: undefined
@@ -48,6 +50,7 @@ const Auth = () => {
   const authSubmitHandler = event => {  //Allow to see inputs in console
     event.preventDefault();
     console.log(formState.inputs);
+    auth.login();
   };
 
   return (
