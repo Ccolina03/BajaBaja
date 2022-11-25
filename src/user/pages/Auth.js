@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {useState, useCallback} from 'react';
+import {useState} from 'react';
 import { AuthContext } from '../../shared/context/auth-context';
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
@@ -47,9 +47,32 @@ const Auth = () => {
     }
     setIsLoginMode(prevMode => !prevMode)
   }
-  const authSubmitHandler = event => {  //Allow to see inputs in console
+  const authSubmitHandler = async event => {  //Allow to see inputs in console
     event.preventDefault();
-    console.log(formState.inputs);
+
+    if (!isLoginMode) { 
+      try { 
+
+        const response = await fetch('http://localhost:5000/api/users/signup', {method: 'POST', headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name1:formState.inputs.name.value
+      , email: formState.inputs.email.value, 
+      password: formState.inputs.password.value})
+  });
+
+  const responseData= await response.json();
+  console.log(responseData)
+
+      } catch (err) {
+        console.error(err)
+      }
+      
+
+    } else {
+      
+    }
+
     auth.login();
   };
 
