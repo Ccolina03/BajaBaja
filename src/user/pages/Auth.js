@@ -61,22 +61,25 @@ const Auth = () => {
         const response = await fetch('http://localhost:5000/api/users/signup', {method: 'POST', headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({name1:formState.inputs.name.value
-      , email: formState.inputs.email.value, 
+    body: JSON.stringify({
+      name1:formState.inputs.name.value,
+      email: formState.inputs.email.value, 
       password: formState.inputs.password.value})
   });
 
-  const responseData= await response.json();
+  const responseData = await response.json();
+  if (!response.ok) {
+    throw new Error(responseData.message);
+  }
   console.log(responseData)
+  setIsLoading(false)
+  auth.login();
 
       } catch (err) {
         console.error(err);
         setIsLoading(false);
         setError(err.message || "SIGNUP went wrong. Try again later.")
-        
       }
-    setIsLoading(false)
-    auth.login();
     } else {
       
     }
@@ -84,7 +87,13 @@ const Auth = () => {
     
   };
 
+  const handlerError = () => {
+    setError(null);
+  };
+
   return (
+    <React.Fragment>
+    <ErrorModal error={error} onClear={handlerError}/>
     <Card className="authentication">
       {isLoading &&<LoadingSpinner asOverlay={true}/>}
       <h2>Login Required</h2>
@@ -121,6 +130,7 @@ const Auth = () => {
         </Button>
       </form> 
       <Button inverse onClick={switchModeHandler}> No account? {isLoginMode ? 'SIGNUP' : 'LOGIN'} </Button>
-    </Card>);};
+    </Card>
+    </React.Fragment>);};
 
 export default Auth;
