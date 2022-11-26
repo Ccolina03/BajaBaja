@@ -21,9 +21,9 @@ const UsersList = props => {
 			<UserItem 
 			key={user.id}
 			id={user.id}
-			image={user.image}
-			name={user.name}
-			placeCount={user.places}
+			image={'https://freewalkingtoursperu.com/wp-content/uploads/2021/12/tour-lima-vieja-con-metro-bus-metropolitano-2.jpg'}
+			name={user.name1}
+			placeCount={user.places.length}
 			/>
 		))}
 	  </ul>

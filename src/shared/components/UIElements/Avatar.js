@@ -1,12 +1,12 @@
 import React from 'react';
-
+import busfoto from '../../../images/Lima.jpg'
 import './Avatar.css';
 
 const Avatar = props => {
   return (
     <div className={`avatar ${props.className}`} style={props.style}>
       <img
-        src={props.image}
+        src={busfoto}
         alt={props.alt}
         style={{ width: props.width, height: props.width }}
       />
