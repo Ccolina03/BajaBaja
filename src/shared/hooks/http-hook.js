@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 export const useHttpClient = () => {
     const [error, setError] =useState()
     const [isLoading, setIsLoading] =useState(false);
     
-    const activatedHttpRequest = useRef()
+    const activatedHttpRequest = useRef([])
 
 
     const sendRequest =useCallback( async (url, method = 'GET', body =null, headers={}) => {
@@ -13,7 +13,7 @@ export const useHttpClient = () => {
         activatedHttpRequest.current.push(httpAbortController);
 
         try {
-            const response = fetch(url, {
+            const response = await fetch(url, {
                 method,
                 body,
                 headers,
@@ -21,16 +21,24 @@ export const useHttpClient = () => {
             })
     
             const responseData = await response.json();
+
+            activatedHttpRequest.current= activatedHttpRequest.current.filter(
+                reqCtrl => reqCtrl !== httpAbortController);
+        
     
             if(!response.ok) {
                 throw new Error (responseData.message)
             }
 
+            setIsLoading(false)
             return responseData;
+
         } catch (err){
+
             setError(err.message);
+            setIsLoading(false);
+            throw err;
         }
-        setIsLoading(false);
     }, []);
 
     const clearError = () => {
@@ -38,9 +46,9 @@ export const useHttpClient = () => {
     }
 
     useEffect(() => {
-        return () => { activatedHttpRequest.current.forEach(ControlAbort => ControlAbort.abort())}
+        return () => { activatedHttpRequest.current.forEach(ControlAbort => ControlAbort.abort());}
     } , []);
 
-    return {isLoading:isLoading, error:error, sendRequest:sendRequest, clearError}
+    return {isLoading, error, sendRequest:sendRequest, clearError}
 
 };

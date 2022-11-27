@@ -13,11 +13,13 @@ import { useForm } from '../../shared/hooks/form-hook';
 import './Auth.css';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+
 const Auth = () => {
     const auth = useContext(AuthContext);
     const [isLoginMode, setIsLoginMode]=useState(true);
-    const [error, setError] =useState()//initially undefined
-    const [isLoading, setIsLoading] =useState(false);
+   
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
    
     const [formState, inputHandler, setFormData] = useForm(
     {
@@ -51,63 +53,44 @@ const Auth = () => {
     }
     setIsLoginMode(prevMode => !prevMode)
   }
+
   const authSubmitHandler = async event => {  //Allow to see inputs in console
     event.preventDefault();
-    setIsLoading(true)
-
+  
     if (!isLoginMode) { 
-      try { 
-        const response = await fetch('http://localhost:5000/api/users/signup', {method: 'POST', headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name1:formState.inputs.name.value,
-      email: formState.inputs.email.value, 
-      password: formState.inputs.password.value})
-  });
+      try {
+        await sendRequest(
+          'http://localhost:5000/api/users/signup',
+          'POST',
+          JSON.stringify({
+            name1: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value
+          }),
+          {
+            'Content-Type': 'application/json'
+          }
+        );
 
-  const responseData = await response.json();
-  if (!response.ok) {
-    throw new Error(responseData.message);
-  }
-  setIsLoading(false)
-  auth.login();
-
-      } catch (err) {
-        console.error(err);
-        setIsLoading(false);
-        setError(err.message || "SIGNUP went wrong. Try again later.")
-      }
+        auth.login();
+      } catch (err) {}
     } else {
-      try { 
-        const response = await fetch('http://localhost:5000/api/users/login', 
-        {method: 'POST', headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: formState.inputs.email.value, 
-      password: formState.inputs.password.value})
-  });
-
-  const responseData = await response.json();
-  if (!response.ok) {
-    throw new Error(responseData.message);
-  }
-  setIsLoading(false)
+        try { await sendRequest('http://localhost:5000/api/users/login',
+        'POST', 
+        JSON.stringify({
+          email: formState.inputs.email.value, 
+          password: formState.inputs.password.value}),
+          {
+            'Content-Type': 'application/json'
+          },
+        );
   auth.login();
-
-      } catch (err) {
-        console.error(err);
-        setIsLoading(false);
-        setError(err.message || "SIGNUP went wrong. Try again later.")
-      }
-    }
-
-    
+} catch (err) {    }
+  }
   };
 
   const handlerError = () => {
-    setError(null);
+    clearError();
   };
 
   return (
