@@ -11,16 +11,18 @@ import EditPlace from './places/pages/EditPlace';
 import Auth from './user/pages/Auth.js';
 import {AuthContext} from './shared/context/auth-context';
 const App = () => { 
-
+  const [userId, setUserId] = useState(false)
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
 
 	const logout = useCallback(() => {
 		setIsLoggedIn(false);
+    setUserId(null);
 	}, []);
 
-	const login = useCallback(() => {
+	const login = useCallback((uid) => {
 		setIsLoggedIn(true);
+    setUserId(uid);
 	}, []);
 
 	let routes;
@@ -60,7 +62,7 @@ const App = () => {
     );
   }
 	return (
-	<AuthContext.Provider value = {{isLoggedIn: isLoggedIn, login:login, logout:logout}}>
+	<AuthContext.Provider value = {{isLoggedIn: isLoggedIn, login:login, logout:logout, userId}}>
 	 <Router>
 	  <MainNavigation />
 	  <main>
