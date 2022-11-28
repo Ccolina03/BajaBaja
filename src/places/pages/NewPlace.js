@@ -54,7 +54,7 @@ const NewPlace = () => {
 		}),
 		{"Content-Type": 'application/json'}
 		 );
-		//Will redirect to new page. 
+		oldhistory.push('/');
 		} catch (err) { }
 		
 	};

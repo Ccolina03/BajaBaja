@@ -34,7 +34,7 @@ export const useHttpClient = () => {
             return responseData;
 
         } catch (err){
-
+            console.log(err)
             setError(err.message);
             setIsLoading(false);
             throw err;
@@ -49,6 +49,6 @@ export const useHttpClient = () => {
         return () => { activatedHttpRequest.current.forEach(ControlAbort => ControlAbort.abort());}
     } , []);
 
-    return {isLoading, error, sendRequest:sendRequest, clearError}
+    return {isLoading, error, sendRequest, clearError}
 
 };

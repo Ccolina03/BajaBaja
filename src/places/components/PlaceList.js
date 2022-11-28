@@ -16,7 +16,7 @@ const PlaceList = props => {
         );
     }
     return <ul className="place-list">
-        {props.items.map(place => <PlaceItem key={place.id} id={place.id} image={place.imageUrl} title={place.title} description={place.description} address={place.address} creatorId= {place.creator} coordinates={place.location}/>)}
+        {props.items.map(bus_stops=> <PlaceItem key={bus_stops.id} id={bus_stops.id}  title={bus_stops.title} description={bus_stops.description} address={bus_stops.address} creatorId= {bus_stops.creator} busrespect={bus_stops.busrespect} coordinates={bus_stops.location} image={bus_stops.image}/>)} {/* //Will be added soon: //coordinates={place.location} image={place.imageUrl}/>)} */}
     </ul>;
 };
 

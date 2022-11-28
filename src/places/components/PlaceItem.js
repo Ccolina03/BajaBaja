@@ -42,7 +42,7 @@ const PlaceItem = props => {
             footer={<Button onClick={closeMapHandler}>Close </Button>}
             >
             <div className='map-container'>
-                <Map center={props.coordinates} zoom={16}/>
+                <Map center={props.coordinates} zoom={16}/>  {/* Should be props.coordinates but we writing default data for now until geocoding solved. */}
             </div>
         </Modal>
       <Modal
@@ -79,7 +79,7 @@ const PlaceItem = props => {
                 </div>
                 <div className='place-item__actions'>
                     <Button inverse onClick={openMapHandler}> VIEW ON MAP</Button>
-                   {auth.isLoggedIn &&<Button to={`/places/${props.id}`}> EDIT</Button> }
+                   {auth.isLoggedIn && (<Button to={`/places/${props.id}`}> EDIT</Button> )}
                   {auth.isLoggedIn &&<Button danger onClick={showDeleteWarningHandler}> DELETE </Button>}
                 </div>
             </Card>
