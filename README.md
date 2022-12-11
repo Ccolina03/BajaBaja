@@ -6,7 +6,7 @@ Fixed:
 
 Future Updates:
 -Adding Karma functionality for each user.
--Geocoding API from writting adress.
+-Geocoding API connected to new bus stop form. 
 -Manually locate marker for bus stops.
 -Upgrading Front-End
 -Uploading Images for bus stops. 
