@@ -32,7 +32,7 @@ const PlaceItem = props => {
       const confirmDeleteHandler = async () => {
         setShowConfirmModal(false); //when clicked close the new Modal 
         try {
-          sendRequest( `http://localhost:500/api/places/${props.id}`, 'DELETE')
+          sendRequest( `http://localhost:5000/api/places/${props.id}`, 'DELETE')
         } catch (err){
 
         }
