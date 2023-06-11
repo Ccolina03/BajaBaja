@@ -39,7 +39,7 @@ import { AuthContext} from '../../shared/context/auth-context';
     const fetchPlace = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/places/${placeId}`
+          `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`
         );
         setLoadedPlaces(responseData.bus_stop);
         setFormData(
@@ -67,7 +67,7 @@ import { AuthContext} from '../../shared/context/auth-context';
     const placeUpdateSubmitHandler = async event => {
         event.preventDefault();
         try {
-          await sendRequest(`http://localhost:5000/api/places/${placeId}`, 'PATCH', 
+          await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`, 'PATCH', 
         JSON.stringify({
           title: formState.inputs.title.value, 
           description: formState.inputs.description.value

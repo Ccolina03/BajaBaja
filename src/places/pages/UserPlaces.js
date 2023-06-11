@@ -7,14 +7,14 @@ import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const UserPlaces = () => {
-    const {loadedPlaces, setLoadedPlaces} = useState();
+    const [loadedPlaces, setLoadedPlaces] = useState();
     const {isLoading, error, sendRequest, clearError } = useHttpClient();
     const userId = useParams().userId;
     useEffect(() => {
         const fetchPlaces = async () => {
           try {
             const responseData = await sendRequest(
-              `http://localhost:5000/api/places/user/${userId}`
+              `${process.env.REACT_APP_BACKEND_URL}/places/user/${userId}`
             );
             console.log(responseData.bus_stops)
             setLoadedPlaces(responseData.bus_stops);
